@@ -1,0 +1,53 @@
+								Assignment - 28  Postgres DB
+
+
+
+1. Create a table (student) with 3 columns (rollno, name, course).
+
+CREATE TABLE student (rollno int,name varchar, course varchar);
+
+2. Insert records for 4 students.
+
+insert into student VALUES
+(1,'rohini','b.tech')
+(2,'rashmi','m.tech')
+(3,'sandhy','bsc')
+(4,'himani','phd')
+;
+
+3. Write a Select query to fetch all the students.
+
+SELECT * FROM student;
+
+4. Update the student name of rollno 3 with ‘Mohan’
+
+update student set name='mohan' where rollno='3'
+
+5. Delete any student from table with their rollno.
+
+delete from student where rollno=2;
+
+6. Delete all the data from student table.
+
+drop table student;
+
+7. Drop the student table.
+
+drop table student ; 
+
+8. Create Courses table (cid, cname) where cid is a primary key and Student table
+(rollno, name, cid) where rollno is a primary key and cid is a foreign key.
+
+create table course (c_id int, name text,primary key(c_id));
+create table student (rollno int ,name text,c_id int ,primary key(rollno), CONSTRAINT
+fk_course FOREIGN KEY(c_id) REFERENCES course(c_id));
+
+9. Insert data in both the tables.
+
+insert into course values(1,'python');
+insert into course values(2,'java');
+insert into student values(1,'rohini',2);
+
+10. Select all the students who are doing a specific course, eg. Python.
+
+select name from student where c_id=(select c_id from course where name='python');

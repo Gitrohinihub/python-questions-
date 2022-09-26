@@ -1,0 +1,202 @@
+								Assignment - 29  File Handling
+
+
+
+1. Write a Python script to print the following status of a file:
+a. Whether a file is read only
+b. Whether a file is closed or not
+c. Which file opening mode is used
+d. Name of the file
+
+
+def check_file(filename):
+    try:
+        #file opwn by with keyword ,so this will close automatic.
+        with open(filename,'r') as file:
+            print ("Name of the file: ", file.name)
+            print ("Closed or not : ", file.closed)
+            print ("Opening mode : ", file.mode)
+            if file.mode=='r':
+                print('read only')
+            else:
+                print('not only read ')
+    except FileNotFoundError:
+            print("file not present ")
+
+filename=input("enter the file name ")
+check_file(filename)
+
+
+
+2. Write a Python script to create a new file ‘myfile.txt’ and store user entered text.
+
+'''file=open('myfile.txt','w')
+write=input("you can write what yo want ")
+file.write(write)
+file.close()'''
+
+def writing(filename,text):
+    with open(filename,'w') as f:
+        f.write(text)
+
+filename=input("enter file name  ")
+text=input("write, what you want  ")
+#writing('myfile.txt','rohini')
+writing(filename,text)
+
+3. Write a Python script to read the above created file ‘myfile.txt’ and display content on
+the console.
+
+
+def reading(filename):
+    try:
+        with open(filename,'r') as f:
+            res=f.read()
+            print(res)
+    except FileNotFoundError:
+        print("file is not present in your pc")
+
+filename=input("enter file name  ")
+reading(filename)
+
+
+
+4. Write a Python script to store a list of city names in a file ‘cities.txt’
+
+def city_name(filename,text):
+    with open(filename,'w') as f:
+        f.write(text)
+
+filename=input("enter file name  ")
+text=input("write city name ")
+city_name(filename,text)
+
+
+5. Write a Python script to append list of city names in a file ‘cities.txt’
+
+def append(filename,res):
+        with open(filename,'a') as f:
+            #list=(res)
+            f.write(res)
+
+filename=input("enter file name  ")
+#n=int(input("how many city name do you want to enter  "))
+#for x in range(n):
+name=input("enter city names ")
+append(filename,name)
+
+*********************************************
+
+import pickle
+f_n=input("enter file name  ")
+city_name = {1 : 'khurja', '2' : 'bhopal',
+    '3' : 'nagpur', '4':'aligarah'}
+db = {}
+# db['city_name'] = city_name
+dbfile = open('f_n', 'ab')
+pickle.dump(db, dbfile)                     
+dbfile.close()
+dbfile = open('f_n', 'rb')     
+db = pickle.load(dbfile)
+for keys in db:
+    print(keys, '..', db[keys])
+dbfile.close()
+  
+
+
+6. Write a Python script to search whether a particular city is there in the file ‘cities.txt’ or
+not
+
+def search_word(filename,word):
+    try:
+        f=open(filename,'r')
+        line_count=0
+        for lines in f.readlines():
+            line_count+=1
+            str_list=lines.split(' ')
+            word_count=0
+            for w in str_list:
+                word_count+=1
+                if word==w:
+                    return(line_count,word_count)
+        else:
+            return None
+        f.close()
+    except FileNotFoundError:
+        print("file not found")
+
+filename=input("enter file name  ")
+word=input("enter word ")
+result=search_word(filename,word)
+if result==None:
+    print("word not in file \n")
+else:
+    print("yes,word in file",result)
+
+
+7. Write a Python script to count the number of Python keywords occurring in a python
+source file.
+
+
+import keyword
+def search_word(filename):
+    try:
+        f=open(filename,'r')
+        line_count=0
+        for lines in f.readlines():
+            line_count+=1
+            str_list=lines.split(' ')
+            key_word=0
+            list=['in','False','True','None',]
+            for w in str_list:
+                key_word+=1
+                if w in  list:
+                    return(key_word)
+        else:
+            return None
+        f.close()
+    except FileNotFoundError:
+        print("file not found")
+filename=input("enter file name  ")
+#word=input("enter word ")
+result=search_word(filename)
+if result==None:
+    print("keyword not in file \n")
+else:
+    print("yes,total keyword in the file is ",result)
+
+
+8. Write a Python script to create a copy of a file.
+
+import shutil
+shutil.copyfile('cities.txt','rohi.txt')
+
+
+9. Write a Python script to store book data in a file. Book data is in the form of a
+dictionary in which book name is the key and price is its value. Use pickle to store
+data into a file (say bookfile)
+
+import pickle
+#file_name=input("enter file name  ")
+bookfile= {'wings of fire': 200 , 'a millions thoughts':96,'one day life will change':103}
+dbfile = open('bookfile', 'ab')
+pickle.dump(bookfile,dbfile)                   
+dbfile.close()
+
+
+10. Write a Python script to extract book data from a bookfile using pickle. Also print
+extracted book data.
+
+
+import pickle
+#file_name=input("enter file name  ")
+bookfile= {'wings of fire': 200 , 'a millions thoughts':96,'one day life will change':103}
+dbfile = open('bookfile', 'ab')
+pickle.dump(bookfile,dbfile)                   
+dbfile.close()
+dbfile = open('bookfile', 'rb')     
+db = pickle.load(dbfile)
+for keys in db:
+    print(keys, '..', db[keys])
+dbfile.close()
+  

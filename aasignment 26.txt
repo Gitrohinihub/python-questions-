@@ -1,0 +1,226 @@
+                                                Assignment - 26  Polymorphism and Multithreading
+
+
+
+1. Write a python script to multiple 2 or 3 or 4 numbers with a single multiply method in
+a class using method overloading.
+
+class g_father:
+    def skills(self):
+        print("c lang in detail ,c++ in details ")
+        print("they used to dry run his code befor run\n")
+class father:
+    def new_skills(self):
+        print('he known c lag ,c++ lag,java lag ')
+        print("he used to testing  of software\n")
+class son(g_father,father):
+        def adv_skills(self):
+            print("c, c++,python, java,dsc ,frame works")
+            print("try to getting more knowledge ")
+s=son()
+s.skills()
+s.new_skills()
+s.adv_skills()
+
+
+2. Write a python script to create a user account class with 2 instance variables (userid
+and balance). Create 3 user objects and add all the users using operator
+overloading.
+
+answer= not possible for 3 objects, we can pass only two arguments in operator overloading functions.
+
+class user_account:
+    def __init__(self,userid,balance):
+        self.userid=userid
+        self.balance=balance
+    def __add__(self,other1):
+        return self.userid + other1.userid ,self.balance + other1.balance
+
+user1=user_account(1,1000)
+user2=user_account(2,2000)
+result=user1+user2
+print(result,"\n")
+
+
+3. Write a python script to create a to print the above user account object using operator
+overloading (hint __str__ method).
+
+class user_account:
+    def __init__(self,userid,balance):
+        self.userid=userid
+        self.balance=balance
+    def __add__(self,other1):
+        res_1=self.userid + other1.userid 
+        res_2=self.balance + other1.balance 
+        final=user_account(res_1,res_2)
+        return final
+
+    def __str__(self):
+        return str(self.userid) + " : " +  str(self.balance)    
+user1=user_account(1,1000)
+user2=user_account(2,2000)
+result=user1+user2
+print(result,"\n")
+
+4. Write a python script to create two Threads. First thread will print all Even numbers
+and Second thread will print all Odd numbers till 100.
+
+from threading import Thread
+from time import sleep
+class even_num(Thread):
+    def run(self):
+        i=1
+        while i<=100:
+            print(2*i)
+            i+=1
+class odd_num(Thread):
+    def run(self):
+        i=1
+        while i<=100:
+            print(2*i-1)
+            i+=1
+
+num1=even_num()
+num2=odd_num()
+num1.start()
+num2.start()
+
+
+5. Write a python script to create 2 threads to add all the values from 1 to 100.
+
+from threading import Thread
+from time import sleep
+class even_num(Thread):
+    def run(self):
+        i=1
+        sum=0
+        while i<=100:
+            sum=sum+i
+            i+=1
+        print(sum)
+class odd_num(Thread):
+    print("complete mission")
+
+
+num1=even_num()
+num2=odd_num()
+num1.start()
+num2.start()
+
+6. Write a python script to create 5 threads to fill a list with random numbers till 100.
+
+from concurrent.futures import thread
+from threading import Thread
+import random
+class fill_list(Thread):
+    def run(self):
+        l=[]
+        for i in range(1,100):
+            l.append(random.randint(1,100))
+        print(l)
+obj=fill_list()
+obj.start()
+
+
+7. Write a python script to create a clock where 1st thread will print the current time
+every second and 2nd will print “1 Minute Completed” after every 1 minute.
+
+from threading import Thread
+from time import sleep
+from datetime import datetime
+class clock(Thread):
+    def run(self):
+        dt=datetime.today()
+        print(dt)
+        d1=dt.strftime("%H %M %S")
+        print(d1)
+class time(Thread):
+    def run(self):
+        print("1 minute complete")
+clk=clock()
+t=time()
+clk.start()
+sleep(60)
+t.start()
+
+
+8. Write a python script to change the name of the Thread.
+
+
+from threading import Thread
+from threading import current_thread
+
+def task():
+    thread = current_thread()
+    print(f'Hello from a new thread: {thread.name}')
+ 
+# create a new thread
+thread = Thread(target=task)
+# set a custom name for the new thread
+thread.name = 'old name'
+# start the new thread
+#thread.start()
+#change again thread name
+thread.name='new name :rohini'
+thread.start()
+
+
+9. Write a python script to join 2 threads after printing completing the first Question.
+
+from time import sleep
+from threading import Thread
+ 
+# target function
+def task():
+    # block for a moment
+    sleep(5)
+    # report a message
+    print('All done in the new thread')
+ 
+# create a new thread
+thread = Thread(target=task)
+# start the new thread
+thread.start()
+# wait for the new thread to finish
+print('Main: Waiting for thread to terminate...')
+thread.join(timeout=2)
+# check if the thread is still alive
+if thread.is_alive():
+    print('Main: The target thread is still running')
+else:
+    print('Main: The target thread has terminated')
+
+
+10. Write a python script to check whether a given number is prime or armstrong number
+using 2 different threads.
+
+from threading import Thread
+from time import sleep
+class prime(Thread):
+    def run(self):
+        n=int(input("enter the number "))
+        for x in range(2,n):
+            if n%x==0:
+                break
+        if n==x+1:
+            print("prime")
+        else:
+            print("not prime")
+class arm_strong(Thread):
+    def run(self):
+        n=int(input("enter the number  "))
+        sum=0
+        while n!=0:
+            z=n%10
+            sum=sum+z**3
+            n=n//10
+        if sum==n:
+            print("armstrong number")
+        else:
+            print("not armstrong number")
+
+num1=prime()
+num2=arm_strong()
+num1.start()
+num2.start()
+
