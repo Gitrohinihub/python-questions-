@@ -1,0 +1,29 @@
+
+                #Word Puzzle Game
+
+
+def puzzel(word):
+    print("\nArrange the letters to form a valid word")
+    print(word)
+    user_input=input()
+    if (user_input =="Father" or user_input=="FATHER" or user_input=="father"
+    or user_input=="BREAK" or user_input=="break" or user_input=="Break"
+    or user_input=="country" or user_input=="COUNTRY" or user_input=="Country"
+    or user_input=="green" or user_input=="Green" or user_input=="GREEN" or 
+    user_input=="aeroplane" or user_input=="Aeroplane" or user_input=="AEROPLANE"):
+        print("\ncorrect")
+        return True
+    else:
+        print("\nwrong")
+        return False
+list_word=['RAEHTF','KABRE','CYROTNU','RENEG','OAERELANP']
+count=0
+for word in list_word:
+    res=puzzel(word)
+    if res==True:
+            count+=1
+            #print("score +1")
+    else:
+            count-=1
+            #print("score -1")
+print("Net score is",count)
